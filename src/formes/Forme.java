@@ -9,7 +9,8 @@ public abstract class Forme {
 	double y1;
 	double x2;
 	double y2;
-	Color color;
+	Color colorBordure;
+	Color colorFill; 
 	double width=3;
 	
 	
@@ -17,12 +18,13 @@ public abstract class Forme {
 
 
 
-	public Forme(double x1,double y1,double x2,double y2,Color color) {
+	public Forme(double x1,double y1,double x2,double y2,Color colorBordure,Color colorFill) {
 		this.x1=x1;
 		this.y1=y1;
 		this.x2=x2;
 		this.y2=y2;
-		this.color = color;
+		this.colorBordure = colorBordure;
+		this.colorFill=colorFill;
 	}
 	
 	public double getWidth() {
@@ -37,14 +39,22 @@ public abstract class Forme {
 
 	
 	
-	public Color getColor() {
-		return color;
+	public Color getColorFill() {
+		return colorFill;
+	}
+
+	public void setColorFill(Color colorFill) {
+		this.colorFill = colorFill;
+	}
+
+	public Color getColorBordure() {
+		return colorBordure;
 	}
 
 
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setColorBordure(Color colorBordure) {
+		this.colorBordure = colorBordure;
 	}
 
 

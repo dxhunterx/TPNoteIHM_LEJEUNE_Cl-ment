@@ -53,6 +53,9 @@ public class Controller {
 	private ColorPicker colorPicker;
 	
 	@FXML
+	private ColorPicker colorPickerBis;
+	
+	@FXML
 	private Canvas canvas;
 	
     @FXML
@@ -69,7 +72,8 @@ public class Controller {
     final double widthSelect = 6;
     Forme formeS;
     Forme formePreVisualisation;
-    Color color = Color.BLACK;
+    Color colorBordure = Color.BLACK;
+    Color colorFill = Color.CORNSILK;
     double x1;
 	double y1;
 	double x2;
@@ -77,7 +81,7 @@ public class Controller {
 	ArrayList<Forme> listeF= new ArrayList<Forme>();
 
 	public void drawAll(GraphicsContext gc) {
-		gc.clearRect(0, 0, 483, 450);
+		gc.clearRect(0, 0, 800, 575);
 		listeF.forEach(f -> f.draw(gc));
 	}
 	
@@ -98,22 +102,30 @@ public class Controller {
     public void initialize(){
     	
     	colorPicker.setValue(Color.BLACK);
+    	colorPickerBis.setValue(Color.CORNSILK);
     	GraphicsContext gc = canvas.getGraphicsContext2D();
     	gc.setLineWidth(4);
     	deleteButton.setDisable(true);
     	cloneButton.setDisable(true);
     	
-    	System.out.println(color);
+    	System.out.println(colorBordure);
     	
     	colorPicker.setOnAction(event ->  {
-            color = colorPicker.getValue();
+    		colorBordure = colorPicker.getValue();
 
             if(formeS!=null) {
-            	formeS.setColor(color);
+            	formeS.setColorBordure(colorBordure);
             	drawAll(gc);
             }
         });
-    	
+    	colorPickerBis.setOnAction(event ->  {
+    		colorFill = colorPickerBis.getValue();
+
+            if(formeS!=null) {
+            	formeS.setColorFill(colorFill);
+            	drawAll(gc);
+            }
+        });
     	
     	
     	
@@ -198,7 +210,7 @@ public class Controller {
     		canvas.setOnMouseDragged((new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
-                    formePreVisualisation=new Ligne(x1,y1,event.getX(),event.getY(),color);
+                    formePreVisualisation=new Ligne(x1,y1,event.getX(),event.getY(),colorBordure,colorFill);
                     drawAll(gc);
                     formePreVisualisation.draw(gc);
                 }
@@ -209,7 +221,7 @@ public class Controller {
 
                 @Override
                 public void handle(MouseEvent event) {
-                	Ligne line = new Ligne(x1,y1,event.getX(),event.getY(),color);
+                	Ligne line = new Ligne(x1,y1,event.getX(),event.getY(),colorBordure,colorFill);
                 	listeF.add(line);
                 	drawAll(gc);
                 }
@@ -241,7 +253,7 @@ public class Controller {
     		canvas.setOnMouseDragged((new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
-                    formePreVisualisation=new Ellipse(x1,y1,event.getX(),event.getY(),color);
+                    formePreVisualisation=new Ellipse(x1,y1,event.getX(),event.getY(),colorBordure,colorFill);
                     drawAll(gc);
                     formePreVisualisation.draw(gc);
                 }
@@ -252,8 +264,7 @@ public class Controller {
 
                 @Override
                 public void handle(MouseEvent event) {
-                	System.out.println(color);
-                	Ellipse ell = new Ellipse(x1,y1,event.getX(),event.getY(),color);
+                	Ellipse ell = new Ellipse(x1,y1,event.getX(),event.getY(),colorBordure,colorFill);
                 	listeF.add(ell);
                 	drawAll(gc);
                 }
@@ -278,7 +289,7 @@ public class Controller {
     		canvas.setOnMouseDragged((new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
-                    formePreVisualisation=new Rectangle(x1,y1,event.getX(),event.getY(),color);
+                    formePreVisualisation=new Rectangle(x1,y1,event.getX(),event.getY(),colorBordure,colorFill);
                     drawAll(gc);
                     formePreVisualisation.draw(gc);
                 }
@@ -289,7 +300,7 @@ public class Controller {
 
                 @Override
                 public void handle(MouseEvent event) {
-                	Rectangle rect = new Rectangle(x1,y1,event.getX(),event.getY(),color);
+                	Rectangle rect = new Rectangle(x1,y1,event.getX(),event.getY(),colorBordure,colorFill);
                 	System.out.println(rect);
                 	listeF.add(rect);
                 	drawAll(gc);

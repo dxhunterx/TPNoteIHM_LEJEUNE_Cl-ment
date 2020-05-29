@@ -5,16 +5,18 @@ import javafx.scene.paint.Color;
 
 public class Ligne extends Forme{
 
-	public Ligne(double x1, double y1, double x2, double y2,Color color) {
-		super(x1, y1, x2, y2,color);
+	public Ligne(double x1, double y1, double x2, double y2,Color colorBordure, Color colorFill) {
+		super(x1, y1, x2, y2,colorBordure,colorFill);
 
 	}
 
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.setLineWidth(width);
-		gc.setStroke(color);
+		gc.setStroke(colorBordure);
 		gc.strokeLine(x1, y1,x2,y2);
+		gc.setFill(colorFill);
+
 		
 	}
 
@@ -44,7 +46,7 @@ public class Ligne extends Forme{
 
 	@Override
 	public Forme clone() {
-		Ligne clone = new Ligne(x1,y1,x2,y2,color);
+		Ligne clone = new Ligne(x1,y1,x2,y2,colorBordure,colorFill);
 		clone.translate(30,30);
 		return clone;
 	}

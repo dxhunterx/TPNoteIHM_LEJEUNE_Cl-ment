@@ -10,9 +10,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("fenetreGraphicEditor.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fenetreGraphicEditorV2.fxml"));
         primaryStage.setTitle("Graphical editor (LEJEUNE clement)");
-        primaryStage.setScene(new Scene(root, 650, 450));
+        primaryStage.setScene(new Scene(root, 800, 575));
         primaryStage.show();
     }
 
