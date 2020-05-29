@@ -2,7 +2,11 @@ package formes;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
+/**
+ * 
+ * @author LEJEUNE Clement
+ *
+ */
 public class Ellipse extends Forme {
 
 	public Ellipse(double x1, double y1, double x2, double y2,Color colorBordure, Color colorFill ) {

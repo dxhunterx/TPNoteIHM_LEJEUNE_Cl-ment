@@ -2,7 +2,11 @@ package formes;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
+/**
+ * 
+ * @author LEJEUNE Clement
+ *
+ */
 public abstract class Forme {
 
 	double x1;
