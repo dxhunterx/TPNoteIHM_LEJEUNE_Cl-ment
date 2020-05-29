@@ -71,7 +71,7 @@ public class Controller {
     
     
     
-    
+    //variables 
     final double widthUnselect = 3;
     final double widthSelect = 6;
     Forme formeS;
@@ -84,11 +84,14 @@ public class Controller {
 	double y2;
 	ArrayList<Forme> listeF= new ArrayList<Forme>();
 
+	
+	//efface l'entiereté du canvas et redessine nos formes
 	public void drawAll(GraphicsContext gc) {
 		gc.clearRect(0, 0, 800, 575);
 		listeF.forEach(f -> f.draw(gc));
 	}
 	
+	//deselecte la forme selectionne
 	public void unselect(GraphicsContext gc) {
 		if(formeS!=null) {
 			formeS.setWidth(widthUnselect);
@@ -104,16 +107,17 @@ public class Controller {
     
     @FXML
     public void initialize(){
-    	
+    	//initialise les colorPicker
     	colorPicker.setValue(Color.BLACK);
     	colorPickerBis.setValue(Color.CORNSILK);
+    	
     	GraphicsContext gc = canvas.getGraphicsContext2D();
-    	gc.setLineWidth(4);
+
+    	//on desactive ces bouton, on les active que quand on est sur le mode select
     	deleteButton.setDisable(true);
     	cloneButton.setDisable(true);
     	
-    	System.out.println(colorBordure);
-    	
+    	//gere le changement de couleur de la bordure
     	colorPicker.setOnAction(event ->  {
     		colorBordure = colorPicker.getValue();
 
@@ -122,6 +126,8 @@ public class Controller {
             	drawAll(gc);
             }
         });
+    	
+    	//gere le changement de couleur du remplissage
     	colorPickerBis.setOnAction(event ->  {
     		colorFill = colorPickerBis.getValue();
 
@@ -132,14 +138,19 @@ public class Controller {
         });
     	
     	
-    	
+    	//gere le mode select
     	selectRadio.setOnAction(event -> {
     		deleteButton.setDisable(false);
+    		
+    		//delete la figure
     		deleteButton.setOnAction(eventbis-> {
     			listeF.remove(formeS);
     			drawAll(gc);
     		});
+    		
     		cloneButton.setDisable(false);
+    		
+    		//clone la figure
     		cloneButton.setOnAction(eventbis-> {
     			if(formeS!=null) {
     				listeF.add(formeS.clone());
@@ -148,7 +159,7 @@ public class Controller {
     			
     		});
     		
-    		
+    		//gere la selection quand on clique sur la zone de detection de la forme
     		canvas.setOnMousePressed(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
@@ -157,7 +168,6 @@ public class Controller {
                 	unselect(gc);
                 	for(Forme f:listeF) {
                 		if(f.touche(event.getX(), event.getY())) {
-                			System.out.println("trouve");
                 			formeS=f;
                 			formeS.setWidth(widthSelect);
                 			drawAll(gc);
@@ -166,6 +176,7 @@ public class Controller {
                 	}
                 }
             });
+    		//deplace la forme avec la souris quand on drag
     		canvas.setOnMouseDragged((new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
@@ -179,6 +190,7 @@ public class Controller {
                 	y1=event.getY();
                 }
             }));
+    		//place la forme la ou on relache la souris
     		canvas.setOnMouseReleased(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
@@ -197,11 +209,13 @@ public class Controller {
     		
     	});
     	
-    	
+    	//gere le mode pour les lignes
     	lineRadio.setOnAction(event -> {
     		deleteButton.setDisable(true);
     		cloneButton.setDisable(true);
-    		unselect(gc);
+    		unselect(gc);//on deselectionne la forme qu'on avait de selectionne
+    		
+    		//prend les coordonne de la souris quand on clique
     		canvas.setOnMousePressed(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
@@ -211,6 +225,7 @@ public class Controller {
                 }
             });
 
+    		//dessine une previsualisation de la forme pendant qu'on drag
     		canvas.setOnMouseDragged((new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent event) {
@@ -220,6 +235,7 @@ public class Controller {
                 }
             }));
     		
+    		//dessine et creer le trait quand on relache le clique
     		canvas.setOnMouseReleased(
                     new EventHandler<MouseEvent>(){
 
@@ -239,7 +255,7 @@ public class Controller {
     		
     		
         });
-    	//ellipse
+    	//ellipse mode
     	ellipseRadio.setOnAction(event -> {
     		deleteButton.setDisable(true);
     		cloneButton.setDisable(true);
@@ -274,7 +290,7 @@ public class Controller {
                 }
             });
         });
-    	//rectangle
+    	//rectangle mode
     	rectangleRadio.setOnAction(event -> {
     		deleteButton.setDisable(true);
     		cloneButton.setDisable(true);
